@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+int main() {
+    int n;
+
+    // Input size
+    scanf("%d", &n);
+
+    int arr[n];
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    int prefix = 0, count = 0;
+
+    // Frequency array (adjust size if needed)
+    // Offset used to handle negative sums
+    int freq[20001] = {0};
+    int offset = 10000;
+
+    freq[offset] = 1; // prefix sum 0 already seen
+
+    for(int i = 0; i < n; i++) {
+        prefix += arr[i];
+
+        // If this prefix sum seen before → zero-sum subarray exists
+        count += freq[prefix + offset];
+
+        // Increase frequency
+        freq[prefix + offset]++;
+    }
+
+    printf("%d", count);
+
+    return 0;
+}
